@@ -66,7 +66,7 @@ int jogar (struct loja *loja) {
 
     struct maquina_pelucia* atual = loja->inicio;
     for (unsigned int i = 1; i <= loja->numero_maquinas; i++) {
-        if (i == maquina_esc) {
+        if (atual->id == maquina_esc) {
             break;
         }
         else  
