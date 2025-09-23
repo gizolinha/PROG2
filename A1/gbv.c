@@ -6,7 +6,7 @@ typedef struct {
     int num_docs; //numero de documentos
     long int offset_dir; //posicao onde comeca o diretorio
 
-} superblock;
+} superbloco;
 
 int gbv_create(const char *filename) {
     FILE* file = fopen(filename, "wb");
@@ -29,6 +29,8 @@ int gbv_create(const char *filename) {
 // a area de diretorio eh um vetor de struct documents
 int gbv_open(Library *lib, const char *filename) {
     FILE* file = fopen(filename, "rb");
+    if (!file)
+        return -1;
 
     int num_docs;
     long offset_dir;
