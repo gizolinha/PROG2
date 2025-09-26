@@ -9,3 +9,4 @@ DUVIDAS:
 - alocar memoria para a struct lib na fopen?
 - considerar a primeira inicialização da fopen quando nao tem nenhum documento entao alocar memoria apenas na add?
 - alocar memoria para o superbloco? ou como o tamanho dele nao muda so usar . para se referir
+- perguntar sobre o tamanho do buffer (que ficou confuso no enunciado) e como usar o BUFFER
