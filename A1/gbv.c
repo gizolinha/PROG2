@@ -50,7 +50,7 @@ int gbv_open(Library *lib, const char *filename) {
     superbloco sb;
     //le o superbloco para RAM
     fread(&sb, sizeof(superbloco), 1, file);
-    printf(" GBV OPEN - Superbloco lido: %d documentos, offset_dir: %ld\n", sb.num_docs, sb.offset_dir); //DEPURACAO
+    printf("GBV OPEN - Superbloco lido: %d documentos, offset_dir: %ld\n", sb.num_docs, sb.offset_dir); //DEPURACAO
 
     //inicializa a lib
     lib->count = sb.num_docs;
