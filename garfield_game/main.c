@@ -33,7 +33,8 @@ int main () {
         if(event.type == 30) {
             game_update(); //logica do jogo
 
-            al_clear_to_color(al_map_rgb(0, 255, 0)); // tela preta
+            game_input(event);
+            al_clear_to_color(al_map_rgb(0, 0, 0)); // tela preta
             game_draw(); //desenho do jogo
             al_flip_display(); //insere as modificacoes
         }

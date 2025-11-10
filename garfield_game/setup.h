@@ -11,7 +11,7 @@ extern ALLEGRO_TIMER* timer; //relogio do jogo
 extern ALLEGRO_EVENT_QUEUE* queue; //fila de eventos
 
 /* funcoes de inicializacao e desligamento */
-int setup_init();
+bool setup_init();
 void setup_end();
 
 #endif /* SETUP_H */

@@ -1,20 +1,21 @@
 #include <stdio.h>
-#include <stdlib.h> // Para malloc
+#include <stdlib.h> 
 #include <allegro5/allegro.h> // Para al_get_bitmap_width
 #include "player.h" // Inclui a struct player e declarations
 #include "game_def.h"
 #include "resources.h" // Para acessar a struct assets
 
-// --- Implementação da Função player_create() ---
+
+/*inicializa o player e carrega recursos*/
 player* player_create() {
-    // 1. Aloca memória para a estrutura player
+    //aloca memória para a estrutura player
     player* p = (player*)malloc(sizeof(player));
     if (!p) {
         perror("ERRO: Falha ao alocar memória para o Player.\n");
         return NULL;
     }
 
-    // 2. Inicializa variáveis de estado e posição
+    // Inicializa variáveis de estado e posição
     p->x = LARGURA_TELA / 3.0f; // Posição X inicial no centro
     p->y = ALTURA_TELA - 300.0f; // Posição Y inicial perto do chão
     p->vel_x = 0.0f;
@@ -25,14 +26,13 @@ player* player_create() {
     p->frame_timer = 0;
     p->anim_direct = 1;
 
-    // 3. Define largura e altura usando o primeiro frame de parado
-    // O assets.player_parado[0] DEVE ser válido aqui se resources_load_all() funcionou.
+    // define largura e altura usando o primeiro frame de parado
     if (assets.player_parado[0]) {
         p->width = al_get_bitmap_width(assets.player_parado[0]);
         p->height = al_get_bitmap_height(assets.player_parado[0]);
     } else {
-        // Se o sprite falhou no carregamento global (verifique resources.c)
-        fprintf(stderr, "AVISO: Sprite principal do player não carregado!\n");
+        // se o sprite falhou no carregamento (verificar resources.c)
+        perror("ERRO: Sprite principal do player não carregado!\n");
         p->width = 50; 
         p->height = 50;
     }
@@ -40,48 +40,41 @@ player* player_create() {
     return p;
 }
 
-// Implementação de player_destroy
-void player_destroy(player* p) {
-    if (p) 
-      free(p);
-}
-
-
-/* atualiza o player (Seu código atual) */
+/* atualiza o player */
 void player_update(player* p) {
-    // ... (Seu código de animação PARADO) ...
 
     if (p->state == PARADO) {
         p->frame_timer++;
-        
+
+        //revisar a lógica da animacao ping pong
         if (p->frame_timer >= FPS_PARADO) { 
             p->frame_timer = 0;
-            // 1. Avança (ou retrocede) o frame
+            //avança (ou retrocede) o frame
             p->current_frame += p->anim_direct;
             
             if (p->current_frame >= FRAMES_PARADO -1) {
-                // Se chegou ao último frame, inverte para -1 (voltar)
+                //se chegou ao ultimo frame, inverte para -1 (voltar)
                 p->anim_direct = -1;
-                // Garante que o índice não passe do limite superior
+                // garante que o indice nao passe do limite
                 p->current_frame = FRAMES_PARADO - 1;
             }
-            // 3. Verifica se atingiu o INÍCIO da sequência (ex: Frame 0)
+            //verifica se chegou o inicio da sequência (frame 0)
             else if (p->current_frame <= 0) {
-                // Se chegou ao primeiro frame, inverte para 1 (avançar)
+                // se chegou ao primeiro frame, inverte para 1 (avança)
                 p->anim_direct = 1;
-                // Garante que o índice não passe do limite inferior
+                // garante que o indice não passe do limite
                 p->current_frame = 0;
             }
         }
     }
     
-    // --- Lógica de Posição ---
+    //logica de posicao
     p->x += p->vel_x;
     p->y += p->vel_y;
 }
 
 
-/* desenha o player (Seu código atual) */
+/* desenha o sprite do player */
 void player_draw(player* p) {
     if (!p) return; // Não desenha se o player não foi criado
     
@@ -109,10 +102,17 @@ void player_draw(player* p) {
     }
 }
 
-// --- Funções de Input (Implementação Vazia para Compilar) ---
-void player_jump(player* p) { /* Lógica de pulo */ }
-void player_right(player* p) { /* Lógica de movimento para direita */ }
-void player_left(player* p) { /* Lógica de movimento para esquerda */ }
+
+/* funcoes de input teclado */
+void player_jump(player* p) { /* pulo */ }
+void player_right(player* p) { /* movimento para direita */ }
+void player_left(player* p) { /* movimento para esquerda */ }
 void player_down_start(player* p) { /* Começar abaixar */ }
 void player_down_stop(player* p) { /* Parar abaixar */ }
-void player_desvio(player* p) { /* Lógica de desvio */ }
+void player_desvio(player* p) { /* desvio */ }
+
+/*desaloca memoria do player */
+void player_destroy(player* p) {
+    if (p) 
+      free(p);
+}

@@ -18,28 +18,23 @@ typedef enum {
 /* estrutura do jogador*/
 typedef struct {
     float x, y, vel_x, vel_y;
-    int width;   // Largura do sprite
-    int height;  // Altura do sprite
+    int width;   // largura do sprite
+    int height;  // altura do sprite
     player_state state;
     bool on_ground; //para fisica do pulo
-    int current_frame; // Índice do frame atual 
+    int current_frame; // indice do frame atual 
     int frame_timer;   // Contador para controlar a velocidade da troca de frames
-    int anim_direct; 
+    int anim_direct; //direcao da animacao
 
 } player;
 
-//incluir todas as funcoes relacionadas ao jogador (garfield)
-/*inicializa o player e carrega recursos*/
+
 player *player_create();
-
-/*desaloca memoria*/
 void player_destroy(player* p);
-
-/*atualiza o player e desenha o sprite*/
 void player_update(player* p);
 void player_draw(player* p);
 
-/*funcoes de input teclado*/
+/* funcoes de input teclado */
 void player_jump(player* p);
 void player_right(player* p);
 void player_left(player* p);

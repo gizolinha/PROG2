@@ -2,9 +2,9 @@
 #ifndef GAME_DEF 
 #define GAME_DEF
 
-//nao sei se vou usar todas mas vou deixar por precaucao
 #include <allegro5/allegro5.h>
 #include <allegro5/allegro_font.h>
+#include <allegro5/allegro_ttf.h>
 #include <stdio.h>
 //depois incluir os outros .h
 
@@ -15,8 +15,9 @@
 #define FPS 30
 #define GRAVIDADE 0.5f
 
+/* player*/
 #define FRAMES_PARADO 5 //5 sprites para a animação parado
-#define FPS_PARADO 10
+#define FPS_PARADO 8
 
 /*estados do jogo */
 typedef enum {
